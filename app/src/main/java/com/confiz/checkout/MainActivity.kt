@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         mCheckoutAPIClient = CheckoutAPIClient(
             this,  // context
-            "pk_test_7891f0d8-ae86-49b7-b07c-1fdc49054ee3",  // your public key
+            BuildConfig.PUBLIC_KEY,  // your public key
             Environment.SANDBOX // the environment
         )
         mCheckoutAPIClient.setTokenListener(mTokenListener) // pass the callback
