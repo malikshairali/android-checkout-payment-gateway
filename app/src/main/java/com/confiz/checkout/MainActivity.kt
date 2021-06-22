@@ -20,12 +20,16 @@ import javax.crypto.Cipher.PUBLIC_KEY
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var mCheckoutAPIClient: CheckoutAPIClient // include the module
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initializePaymentForm()
+
+    }
+
+    private fun initializePaymentForm() {
         val mFormListener: PaymentFormCallback = object : PaymentFormCallback {
             override fun onFormSubmit() {
                 // form submit initiated; you can potentially display a loader
@@ -56,51 +60,6 @@ class MainActivity : AppCompatActivity() {
         checkout_card_form
             .setFormListener(mFormListener)        // set the callback
             .setEnvironment(Environment.SANDBOX)   // set the environemnt
-            .setKey(BuildConfig.PUBLIC_KEY);                     // set your public key
-
-        val mTokenListener: OnTokenGenerated = object : OnTokenGenerated {
-            override fun onTokenGenerated(token: CardTokenisationResponse) {
-                // your token
-            }
-
-            override fun onError(error: CardTokenisationFail) {
-                // your error
-            }
-
-            override fun onNetworkError(error: NetworkError) {
-                // your network error
-            }
-        }
-
-        mCheckoutAPIClient = CheckoutAPIClient(
-            this,  // context
-            BuildConfig.PUBLIC_KEY,  // your public key
-            Environment.SANDBOX // the environment
-        )
-        mCheckoutAPIClient.setTokenListener(mTokenListener) // pass the callback
-
-        // Pass the paylod and generate the token
-        mCheckoutAPIClient.generateToken(
-            CardTokenisationRequest(
-                "4242424242424242",
-                "name",
-                "06",
-                "25",
-                "100",
-                BillingModel(
-                    "address line 1",
-                    "address line 2",
-                    "postcode",
-                    "UK",
-                    "city",
-                    "state"
-                ),
-                PhoneModel(
-                    "+44",
-                    "07123456789"
-                )
-            )
-        );
-
+            .setKey(BuildConfig.PUBLIC_KEY);       // set your public key
     }
 }
