@@ -1,65 +1,29 @@
 package com.confiz.checkout
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.checkout.android_sdk.CheckoutAPIClient
-import com.checkout.android_sdk.CheckoutAPIClient.OnTokenGenerated
-import com.checkout.android_sdk.Models.BillingModel
-import com.checkout.android_sdk.Models.PhoneModel
-import com.checkout.android_sdk.PaymentForm
-import com.checkout.android_sdk.PaymentForm.PaymentFormCallback
-import com.checkout.android_sdk.Request.CardTokenisationRequest
-import com.checkout.android_sdk.Response.CardTokenisationFail
-import com.checkout.android_sdk.Response.CardTokenisationResponse
-import com.checkout.android_sdk.Utils.Environment
-import com.checkout.android_sdk.network.NetworkError
-import kotlinx.android.synthetic.main.activity_main.*
-import javax.crypto.Cipher.PUBLIC_KEY
+import com.confiz.checkout.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        initializePaymentForm()
-
+        setupUI()
     }
 
-    private fun initializePaymentForm() {
-        val mFormListener: PaymentFormCallback = object : PaymentFormCallback {
-            override fun onFormSubmit() {
-                // form submit initiated; you can potentially display a loader
-            }
-
-            override fun onTokenGenerated(response: CardTokenisationResponse) {
-                // your token is here: response.token
-                Log.d("Token: ", response.token)
-                Toast.makeText(applicationContext, response.token, Toast.LENGTH_LONG).show()
-//                checkout_card_form.clearForm() // this clears the Payment Form
-            }
-
-            override fun onError(response: CardTokenisationFail) {
-                // token request error
-            }
-
-            override fun onNetworkError(error: NetworkError) {
-                // network error
-            }
-
-            override fun onBackPressed() {
-                // the user decided to leave the payment page
-//                checkout_card_form.clearForm() // this clears the Payment Form
-            }
+    private fun setupUI() {
+        binding.checkoutPaymentGateway.setOnClickListener {
+            val intent = Intent(this, CheckoutPaymentGateway::class.java)
+            startActivity(intent)
         }
-
-        // initialise the payment from
-        checkout_card_form
-            .setFormListener(mFormListener)        // set the callback
-            .setEnvironment(Environment.SANDBOX)   // set the environemnt
-            .setKey(BuildConfig.PUBLIC_KEY);       // set your public key
     }
+
 }

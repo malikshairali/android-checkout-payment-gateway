@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CheckoutPaymentIntegration"
         tools:replace="android:theme">
+        <activity
+            android:name=".CheckoutPaymentGateway"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
