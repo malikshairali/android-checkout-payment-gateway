@@ -1,9 +1,10 @@
-package com.confiz.checkout
+package com.confiz.checkout.ui.main
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.confiz.checkout.databinding.ActivityMainBinding
+import com.confiz.checkout.ui.CheckoutPaymentGateway
 
 
 class MainActivity : AppCompatActivity() {
