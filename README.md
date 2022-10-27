@@ -11,4 +11,4 @@ A sample android app demonstrating integration of Checkout Payment Gateway.
 
 ## References
 
-Read more: https://developer.android.com/guide/topics/sensors/sensors_overview
+Read more: https://www.checkout.com/docs/integrate/sdks/android-sdk
